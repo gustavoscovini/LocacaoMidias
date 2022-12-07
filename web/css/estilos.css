@@ -1,0 +1,29 @@
+.index * {
+    background-color: #0e0b16;
+    text-align: left;
+}
+
+.index h1 {
+    color: #e7dfdd;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 18%;
+    font-size: 70px;
+}
+
+.index a {
+    background-color: #4717f6;
+    color: #0e0b16;
+    text-decoration: none;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}
+
+.index nav {
+    margin-top: 30px;
+    text-align: center;
+}
