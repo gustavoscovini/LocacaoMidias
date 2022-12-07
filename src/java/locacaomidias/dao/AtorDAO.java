@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import locacaomidias.utils.Utils;
 /**
  *
  * @author gusta
@@ -21,17 +22,53 @@ public class AtorDAO extends DAO<Ator>{
 
     @Override
     public void salvar(Ator obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        PreparedStatement stmt = getConnection().prepareStatement(
+                "INSERT INTO " + 
+                "ator_atriz(nome, sobrenome,dataEstreia) " + 
+                "VALUES( ?, ?, ? );",
+                new String[]{ "insert_id" } );
+
+        stmt.setString( 1, obj.getNome() );
+        stmt.setString( 2, obj.getSobrenome() );
+        stmt.setDate(3, obj.getDataEstreia());
+
+        stmt.executeUpdate();
+        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ) );
+        stmt.close();
     }
 
     @Override
     public void atualizar(Ator obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement stmt = getConnection().prepareStatement(
+                "UPDATE ator_atriz " + 
+                "SET" + 
+                "    nome = ?," + 
+                "    sobrenome = ?, " + 
+                "    dataEstreia = ? " +
+                "WHERE" + 
+                "    id = ?;" );
+
+        stmt.setString( 1, obj.getNome() );
+        stmt.setString( 2, obj.getSobrenome() );
+        stmt.setDate( 3, obj.getDataEstreia() );
+        stmt.setLong( 4,obj.getId() );
+
+        stmt.executeUpdate();
+        stmt.close();
     }
 
     @Override
     public void excluir(Ator obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement stmt = getConnection().prepareStatement(
+                "DELETE FROM ator_atriz " + 
+                "WHERE" + 
+                "    id = ?;" );
+
+        stmt.setLong( 1, obj.getId() );
+
+        stmt.executeUpdate();
+        stmt.close();
     }
 
     @Override
@@ -40,7 +77,8 @@ public class AtorDAO extends DAO<Ator>{
         List<Ator> lista = new ArrayList<>();
 
         PreparedStatement stmt = getConnection().prepareStatement(
-            "SELECT * FROM ator_atriz " );
+            "SELECT * FROM ator_atriz " +
+            "ORDER BY nome, sobrenome,dataEstreia;" );
 
         ResultSet rs = stmt.executeQuery();
 
@@ -94,5 +132,4 @@ public class AtorDAO extends DAO<Ator>{
         
         return a;
     }
-
 }

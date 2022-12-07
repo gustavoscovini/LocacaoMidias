@@ -1,78 +1,82 @@
-<%-- 
-    Document   : index
-    Created on : Dec 2, 2022, 11:59:38 AM
-    Author     : gusta
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="cp" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
+
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <table class="tabelaListagem">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Nome</th>
-          <th>Estado</th>
-          <th>Alterar</th>
-          <th>Excluir</th>
-        </tr>
-      </thead>
-      <tbody>
+  <head>
+    <title>Sistema para Locação de Mídias</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="${cp}/css/estilos.css"/>
+  </head>
 
-        <jsp:useBean
-            id="servicos"
-            scope="page"
-            class="locacaomidias.servicos.ClienteServices"/>
+  <body>
 
-        <c:forEach items="${servicos.todos}" var="cliente">
-          <tr>
-            <td>${cliente.id}</td>
-            <td>${cliente.nome}</td>
-            <td>${cliente.sobrenome}</td>
-            <td>${cliente.email}</td>
-            <td>${cliente.cpf}</td>
-            <td>${cliente.logradouro}</td>
-            <td>${cliente.numero}</td>
-            <td>${cliente.bairro}</td>
-            <td>${cliente.cep}</td>
-            <td>${cliente.cidade.nome}</td>
-          </tr>
-        </c:forEach>
-      </tbody>
-    </table>
-        
-    <form>
-        
-        
-        
-    <div id="divCliente">
-        <jsp:useBean 
-            id="servicosC" 
-            scope="page" 
-            class="locacaomidias.servicos.ClienteServices"/>
+    <h1>Sistema para Locação de Mídias</h1>
 
-        Cliente:
-        <br>
-        <select id="selectCliente" name="idCliente" required>
-          <c:forEach items="${servicosC.todos}" var="cliente">
-            <option value="${cliente.id}">
-              ${cliente.nome} ${cliente.sobrenome}
-            </option>
-          </c:forEach>
-        </select>
-      </div>
-        
-    </form>
-        
-        
-    </body>
+    <p>
+      <a href="${cp}/formularios/clientes/listagem.jsp">
+        Cliente
+      </a>
+    </p>
+    <p>
+      <a href="${cp}/formularios/cidades/listagem.jsp">
+        Cidade
+      </a>
+    </p>
+    <p>
+      <a href="${cp}/formularios/locacao/listagem.jsp">
+        Locacao
+      </a>
+    </p>
+    <p>
+      <a href="${cp}/formularios/estados/listagem.jsp">
+        Estado
+      </a>
+    </p>
+    <p>
+      <a href="${cp}/formularios/exemplar/listagem.jsp">
+        Exemplar
+      </a>
+    </p>
+    <p>
+      <a href="${cp}/formularios/tipo/listagem.jsp">
+        Tipo
+      </a>
+    </p>
+    <p>
+      <a href="${cp}/formularios/midias/listagem.jsp">
+        Midia
+      </a>
+    </p>
+    
+    <p>
+      <a href="${cp}/formularios/classificacaoInterna/listagem.jsp">
+        Classificacao Interna
+      </a>
+    </p>
+    
+    <p>
+      <a href="${cp}/formularios/ator/listagem.jsp">
+        Ator/Atriz
+      </a>
+    </p>
+    
+    <p>
+      <a href="${cp}/formularios/genero/listagem.jsp">
+        Genero
+      </a>
+    </p>
+    
+    <p>
+      <a href="${cp}/formularios/classificacaoEtaria/listagem.jsp">
+        Classificacao Etaria
+      </a>
+    </p>
+
+  </body>
+
 </html>

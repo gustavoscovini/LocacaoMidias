@@ -5,8 +5,11 @@
 package locacaomidias.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import locacaomidias.entidades.Exemplar;
 import locacaomidias.entidades.ItemLocacao;
 
 /**
@@ -35,12 +38,12 @@ public class ItemLocacaoDAO extends DAO<ItemLocacao> {
 
     @Override
     public void atualizar(ItemLocacao obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     @Override
     public void excluir(ItemLocacao obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     @Override
@@ -50,7 +53,50 @@ public class ItemLocacaoDAO extends DAO<ItemLocacao> {
 
     @Override
     public ItemLocacao obterPorId(Long id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return null;
+    }
+    //rever
+    public List<ItemLocacao> obterPorIdVenda( Long idLocacao ) throws SQLException {
+
+        List<ItemLocacao> itensLocacao = new ArrayList<>();
+
+        PreparedStatement stmt = getConnection().prepareStatement(
+                "SELECT" + 
+                "    il.valor valorItemLocacao " +
+                "    e.codigo_interno codigoInternoExemplar, " + 
+                "    e.disponivel disponivelExemplar " +
+                "FROM" +
+                "    item_locacao il, " +
+                "    exemplar e " + 
+                "WHERE il.exemplar_codigo_interno = e.codigo_interno AND " + 
+                "      il.locacao_id = ?;" );
+
+        stmt.setLong( 1, idLocacao );
+
+
+        ResultSet rs = stmt.executeQuery();
+
+        while ( rs.next() ) {
+
+            ItemLocacao il = new ItemLocacao();
+            Exemplar e = new Exemplar();
+            
+            il.setValor(rs.getBigDecimal("valorItemLocacao"));
+           
+            il.setExemplar( e );
+            
+            e.setCodigo_interno(rs.getLong("codigoInternoExemplar"));
+            e.setDisponivel(rs.getBoolean("disponivelExemplar"));
+            
+            itensLocacao.add( il );
+
+        }
+
+        rs.close();
+        stmt.close();
+
+        return itensLocacao;
+
     }
     
 }

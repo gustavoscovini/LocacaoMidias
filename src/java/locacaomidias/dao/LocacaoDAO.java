@@ -70,7 +70,15 @@ public class LocacaoDAO extends DAO<Locacao>{
 
     @Override
     public void excluir(Locacao obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement stmt = getConnection().prepareStatement(
+                "DELETE FROM locacao " + 
+                "WHERE" + 
+                "    id = ?;" );
+
+        stmt.setLong( 1, obj.getId() );
+
+        stmt.executeUpdate();
+        stmt.close();
     }
 
     @Override
